@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
+        super.onActivityResult(requestCode, resultCode, data);
 //
 //        if (resultCode != Activity.RESULT_OK) {
 //            Toast.makeText(this, "error in  scanning", Toast.LENGTH_SHORT).show();
