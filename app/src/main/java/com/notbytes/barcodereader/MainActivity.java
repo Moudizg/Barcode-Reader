@@ -27,13 +27,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        findViewById(R.id.btn_activity).setOnClickListener(this);
-        findViewById(R.id.btn_fragment).setOnClickListener(this);
+
         mTvResult = findViewById(R.id.tv_result);
         mTvResultHeader = findViewById(R.id.tv_result_head);
-    }
-
-    private void addBarcodeReaderFragment() {
         BarcodeReaderFragment readerFragment = BarcodeReaderFragment.newInstance(true, false, View.VISIBLE);
         readerFragment.setListener(this);
         FragmentManager supportFragmentManager = getSupportFragmentManager();
@@ -42,23 +38,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         fragmentTransaction.commitAllowingStateLoss();
     }
 
+    private void addBarcodeReaderFragment() {
+
+    }
+
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btn_fragment:
-                addBarcodeReaderFragment();
-                break;
-            case R.id.btn_activity:
-                FragmentManager supportFragmentManager = getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction();
-                Fragment fragmentById = supportFragmentManager.findFragmentById(R.id.fm_container);
-                if (fragmentById != null) {
-                    fragmentTransaction.remove(fragmentById);
-                }
-                fragmentTransaction.commitAllowingStateLoss();
-                launchBarCodeActivity();
-                break;
-        }
+
     }
 
 
@@ -70,26 +56,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (resultCode != Activity.RESULT_OK) {
-            Toast.makeText(this, "error in  scanning", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        if (requestCode == BARCODE_READER_ACTIVITY_REQUEST && data != null) {
-            Barcode barcode = data.getParcelableExtra(BarcodeReaderActivity.KEY_CAPTURED_BARCODE);
-            Toast.makeText(this, barcode.rawValue, Toast.LENGTH_SHORT).show();
-            mTvResultHeader.setText("On Activity Result");
-            mTvResult.setText(barcode.rawValue);
-        }
+//        super.onActivityResult(requestCode, resultCode, data);
+//
+//        if (resultCode != Activity.RESULT_OK) {
+//            Toast.makeText(this, "error in  scanning", Toast.LENGTH_SHORT).show();
+//            return;
+//        }
+//
+//        if (requestCode == BARCODE_READER_ACTIVITY_REQUEST && data != null) {
+//            Barcode barcode = data.getParcelableExtra(BarcodeReaderActivity.KEY_CAPTURED_BARCODE);
+//            Toast.makeText(this, barcode.rawValue, Toast.LENGTH_SHORT).show();
+//            mTvResultHeader.setText("On Activity Result");
+//            mTvResult.setText(barcode.rawValue);
+//        }
 
     }
 
     @Override
     public void onScanned(Barcode barcode) {
         Toast.makeText(this, barcode.rawValue, Toast.LENGTH_SHORT).show();
-        mTvResultHeader.setText("Barcode value from fragment");
+        mTvResultHeader.setText("");
         mTvResult.setText(barcode.rawValue);
     }
 
